@@ -1,0 +1,38 @@
+{% extends 'base/base.html' %}
+
+{% block content %}
+    {% if user.is_authenticated %}    
+        
+        <form method="POST" >
+            {% csrf_token %}
+            {{ form.non_field_erros }}
+            <div class="fieldWrapper">
+                <input type="hidden" value="{{ user.get_username }}" name="user" >
+            </div>
+            <div class="fieldWrapper">
+                {{ form.placa.erros }}
+                <label class="forme" for="{{ form.placa.id_for_label }}">Placa:</label>
+                {{ form.placa }}
+            </div>
+            <div class="fieldWrapper">
+                {{ form.veiculo.erros }}
+                <label class="forme1" for="{{ form.veiculo.id_for_label }}">Veiculo:</label>
+                {{ form.veiculo }}
+            </div>
+            <div class="fieldWrapper">
+                {{ form.Atualkm.erros }}
+                <label class="forme2" for="{{ form.Atualkm.id_for_label }}">Km Atual:</label>
+                {{ form.Atualkm }}
+            </div>
+            <div class="fieldWrapper">
+                <input class="inbuton" type="submit" value="Salvar" style="font-family: 'New Tegomin', serif;">
+            </div>
+        </form>
+    
+    {% else %}
+    
+        ainda estamos em desenvolvimento 
+    
+    {% endif %}
+    
+{% endblock %}

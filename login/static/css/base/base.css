@@ -1,0 +1,114 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  img {
+    max-width: 100%;
+    display: block;
+  }
+  
+  body {
+    font-family:"'New Tegomin', serif";
+  }
+  
+  .tentando{
+    max-width: 20px;
+  }
+
+  .container {
+    max-width: 960px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+  
+  a {
+    color: white;
+    text-decoration: none;
+  }
+  
+  li {
+    list-style: none;
+  }
+  
+  h1 {
+    color : #fff;
+  }
+  
+  .nav {
+    background: #00b4db; /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #00b4db, #0083b0); /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #00b4db, #0083b0); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    min-height: 60px;
+    padding: 10px;
+    font-family: 'New Tegomin', serif;
+  }
+  
+  .logo {
+    flex-grow: 1;
+  }
+  
+  #toggle {
+    display: none;
+  }
+  
+
+  .topnavb {
+    color: white;
+    cursor: pointer;
+    margin: 0 20px 0 0;
+    position: absolute;
+    right: 10px;
+    display: none;
+  }
+  
+  .nav-icon {
+        text-align: center
+        }
+        
+  .menu ul {
+    display: flex;
+  }
+  
+  .menu ul li {
+    margin: 0 10px;
+    cursor: pointer;
+    font-weight: bold;
+  }
+  
+  @media (max-width : 739px) {
+    .container {
+      flex-direction: column;
+      align-items: flex-start;
+      max-width: 420px;
+    }
+    
+    
+    .topnavb {
+      display: block;
+      cursor: pointer;
+    }
+  
+    .menu {
+      width: 100%;
+    }
+  
+    .menu ul {
+      flex-direction: column;
+      display: none;
+      text-align: center;
+    }
+  
+    .menu ul li {
+      margin: 10px 0;
+      line-height: 50px;
+    }
+  
+   
+    #toggle:checked+.menu ul {
+      display: block;
+    }
+  }

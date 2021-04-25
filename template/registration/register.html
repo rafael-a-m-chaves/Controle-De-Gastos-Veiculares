@@ -1,0 +1,112 @@
+{% extends 'base/base.html' %}
+{% block content %}
+
+<div class="container2">
+    <h1>Crie sua conta</h1>
+    <form method="POST"  class="registro">
+        
+        {% csrf_token %}
+        
+        <div class="selectOption">
+            
+            <label class="textLabels">Cadastro Empresarial?</label>
+            <select id="tipoDeCadastro" class="tipoDeCadastro" onchange="exibirOcultar(this)">
+                <option selected value="oculte">Selecione aqui:</option>
+                <option value="TRUE">Sim</option>
+                <option value="FALSE">Não</option>
+            </select>  
+
+        </div>
+
+        <div class="name" id="name">
+            
+            <label class="textLabeln">Nome:</label>
+            <input class="nomeDeUsuario" type="text" id="inputnome">
+
+        </div>
+        
+        <div class="empresa" id="empresa">
+           
+            <label class="textLabel">Nome Fantasia:</label>
+            <input class="registroEmpresa" type="text" id="inputNomeFantasia">
+
+        </div>
+
+        <div class="user" id="user">
+
+            <label class="textLabelu">Usuario:</label>
+            <input class="registroUser" type="text" id="inputUser">
+
+        </div>
+
+
+        <div class="password" id="password">
+
+            <label class="textLabelp">Senha:</label>
+            <input class="registroSenha" type="password" id="inputPassword">
+
+        </div>
+
+        <div class="email" id="email">
+
+            <label class="textLabele">Email:</label>
+            <input class="registroEmail" type="email" id="inputEmail">
+
+        </div>
+    
+        <div class="insubmit">
+            
+            <input class="inbuton" id="salvar" type="submit" value="Registrar" >
+        
+        </div>
+    
+    </form>
+    
+    <script>
+        
+        function exibirOcultar(val){
+            
+            var name = document.getElementById('name');
+            var empresa = document.getElementById('empresa');
+            var user = document.getElementById('user');
+            var password = document.getElementById('password');
+            var email = document.getElementById('email');
+            var salvar = document.getElementById('salvar');
+            var insubmit = document.getElementById('insubmit');
+
+            if(val.value === "TRUE"){
+                
+                $(empresa).show();
+                $(user).show();
+                $(password).show();
+                $(email).show();
+                $(salvar).show();
+                $(insubmit).show(); 
+                $(name).hide();
+                
+            }
+            else if(val.value === "FALSE"){
+               
+                $(empresa).hide();
+                $(name).show();
+                $(user).show();
+                $(password).show();
+                $(email).show();
+                $(salvar).show();   
+                $(insubmit).show();
+
+            }else{
+                $(empresa).hide();
+                $(name).hide();
+                $(user).hide();
+                $(password).hide();
+                $(email).hide();
+                $(salvar).hide();
+                $(insubmit).hide();    
+            }
+
+
+        };
+    </script>
+</div>
+{% endblock %}

@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    {% load static %} <!--Django para carregar arquivos estaticos-->
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    
+    <!-- links de icones e fonts google -->
+    
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=New+Tegomin&display=swap" rel="stylesheet">
+    
+    <!-- Arquivos staticos css e link com jquary -->
+    
+    <link rel="stylesheet" href="{% static 'css/base/base.css' %}">
+    <link rel="stylesheet" href="{% static 'css/form/registro.css' %}">
+    <link rel="javascript" href="code.jquery.com/jquery-3.6.0.min.js">
+    <script type="text/javascript" src="{% static 'javascript/jquaryCompress/jquary.js' %}"></script>
+
+    <title>Controle de Gastos Veícular</title>
+
+</head>
+
+<body>
+  <header class="nav">
+    
+    <div class="container">
+      
+        <div class="logo">
+            <a href="/"> 
+                <h1 >CGV</h1>
+            </a>
+        </div>
+        <label class="topnavb" for="toggle">
+        
+            <i class="material-icons">menu</i>
+        
+        </label>
+        
+        <input type="checkbox" id="toggle">
+      
+        <nav class="menu">
+            
+            <ul>
+            
+                {% if user.is_authenticated %}
+            
+                <li class="nav-icon">
+                    <a href="/veiculos/{{user.get_username}}"><span class="material-icons-outlined">toys</span><br>Veículos</a>
+                </li>
+                <li class="nav-icon">
+                    <a href="#"><span class="material-icons-outlined">local_gas_station</span><br>Abastecimentos</a>
+                </li>
+                <li class="nav-icon">
+                    <a href="#"><span class="material-icons-outlined">construction</span><br>Manutenções</a>
+                </li>
+                <li class="nav-icon">
+                    <a href="#"><span class="material-icons-outlined">add_road</span><br>Media de Consumo</a>
+                </li>
+                <li class="nav-icon">
+                    <a href="#"><span class="material-icons-outlined">sticky_note_2</span><br>Gastos Por Km </a>
+                </li>
+                <li class="nav-icon">
+                    <a class="nav-link" href="{% url 'logout' %}"><span class="material-icons-outlined">logout</span><br>Sair</a>
+                </li>
+                    
+                {% else %}
+                <li class="nav-icon">
+                    <a href="/veiculos"><span class="material-icons-outlined">toys</span><br>Veículos</a>
+                </li>
+                <li class="nav-icon">
+                    <a href="#"><span class="material-icons-outlined">local_gas_station</span><br>Abastecimentos</a>
+                </li>
+                <li class="nav-icon">
+                    <a href="#"><span class="material-icons-outlined">construction</span><br>Manutenções</a>
+                </li>
+                <li class="nav-icon">
+                    <a href="#"><span class="material-icons-outlined">add_road</span><br>Media de Consumo</a>
+                </li>
+                <li class="nav-icon">
+                    <a href="#"><span class="material-icons-outlined">sticky_note_2</span><br>Gastos Por Km </a>
+                </li>
+                <li class="nav-icon">
+                    <a class="nav-link" href="{% url 'login' %}"><span class="material-icons-outlined">login</span><br>Login</a>
+                </li>
+                <li class="nav-icon">
+                    <a href="/registration"><span class="material-icons-outlined">app_registration</span><br>registre-se</a>                
+                </li>
+                
+                {% endif %}
+
+            </ul>
+
+        </nav>
+    
+    </div>
+  
+</header>
+
+<div class="conteudo">
+
+    {% block content %}
+    
+    {% endblock %}
+
+</div>
+
+
+</body>
+
+</html>
