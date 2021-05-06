@@ -21,21 +21,23 @@
         <div class="name" id="name">
             
             <label class="textLabeln">Nome:</label>
-            <input class="nomeDeUsuario" type="text" id="inputnome">
+            <input class="nomeDeUsuario" type="text" id="inputnome" name="inputnome">
 
         </div>
         
         <div class="empresa" id="empresa">
            
-            <label class="textLabel">Nome Fantasia:</label>
-            <input class="registroEmpresa" type="text" id="inputNomeFantasia">
+            <label class="textLabel">Razão Social:</label>
+            <input class="registroEmpresa" type="text" id="inputNomeFantasia" name="inputNomeFantasia"
+             onchange="escreveInputEmpresa(this)">
 
         </div>
 
         <div class="user" id="user">
 
             <label class="textLabelu">Usuario:</label>
-            <input class="registroUser" type="text" id="inputUser">
+            <input class="registroUser" type="text" id="inputUser" name="inputUser" 
+            onchange="escreveInputUsuario(this)">
 
         </div>
 
@@ -43,17 +45,22 @@
         <div class="password" id="password">
 
             <label class="textLabelp">Senha:</label>
-            <input class="registroSenha" type="password" id="inputPassword">
+            <input class="registroSenha" type="password" id="inputPassword" name="inputPassword">
 
         </div>
 
         <div class="email" id="email">
 
             <label class="textLabele">Email:</label>
-            <input class="registroEmail" type="email" id="inputEmail">
+            <input class="registroEmail" type="email" id="inputEmail" name="inputEmail"
+            onchange="escreveInputEmail(this)">
 
         </div>
-    
+        
+        <div>
+            <input type="hidden" value="Sim" id="empresa1" name="empresa1">
+        </div>
+
         <div class="insubmit">
             
             <input class="inbuton" id="salvar" type="submit" value="Registrar" >
@@ -73,7 +80,8 @@
             var email = document.getElementById('email');
             var salvar = document.getElementById('salvar');
             var insubmit = document.getElementById('insubmit');
-
+            var empresa1 = document.getElementById('empresa1')
+            
             if(val.value === "TRUE"){
                 
                 $(empresa).show();
@@ -82,7 +90,8 @@
                 $(email).show();
                 $(salvar).show();
                 $(insubmit).show(); 
-                $(name).hide();
+                $(name).show();
+                empresa1.value = 'TRUE'
                 
             }
             else if(val.value === "FALSE"){
@@ -94,6 +103,8 @@
                 $(email).show();
                 $(salvar).show();   
                 $(insubmit).show();
+                empresa1.value = 'FALSE'
+                
 
             }else{
                 $(empresa).hide();
@@ -107,6 +118,38 @@
 
 
         };
+    
     </script>
+    
+    <script>
+        function escreveInputEmpresa(val){
+            var empresa = document.getElementById('inputNomeFantasia');
+
+            $.get('/testeEmpresaExiste/' + empresa.value, function (resposta){
+                alert(resposta)
+            })
+        }
+    </script>
+
+    <script>
+        function escreveInputUsuario(val){
+            var usuario = document.getElementById('inputUser');
+
+            $.get('/testeEmpresaExiste/' + usuario.value, function (resposta){
+                alert(resposta)
+            })
+        }
+    </script>
+
+    <script>
+        function escreveInputEmail(val){
+            var email = document.getElementById('inputEmail');
+
+            $.get('/testeEmpresaExiste/' + email.value, function (resposta){
+                alert(resposta)
+            })
+        }
+    </script>
+
 </div>
 {% endblock %}

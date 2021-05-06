@@ -6,12 +6,14 @@ from django.contrib.auth.models import AbstractUser
 
 class Empresa (models.Model):
     id = models.AutoField(primary_key=True)
-    nomeFantasia = models.CharField(max_length=30)
+    nomeFantasia = models.CharField(max_length=30, unique=True)
+
 
 
 class MyUser(AbstractUser):
     empresa = models.ForeignKey(Empresa, on_delete=models.CASCADE, db_column='empresa')
-    propietarioAdministrador = models.BooleanField(blank=True)
+    propietarioAdministrador = models.BooleanField(default=True)
+    assinatura = models.BooleanField(default=False)
     pass
 
 
@@ -30,6 +32,7 @@ class Veiculos (models.Model):
 
     def __str__(self):
         return self.placa
+
 
 
 class Abastecimento (models.Model):
