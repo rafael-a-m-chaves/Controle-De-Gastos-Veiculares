@@ -91,6 +91,7 @@ def testeEmpresaExiste(request, ab):
 def testeUsuarioExiste(request, us):
     try:
         bd = MyUser.objects.get(username=us)
+        print(bd)
         return HttpResponse(True)
     except:
         return HttpResponse(False)

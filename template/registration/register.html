@@ -1,74 +1,87 @@
 {% extends 'base/base.html' %}
 {% block content %}
+{% load static %}
 
 <div class="container2">
-    <h1>Crie sua conta</h1>
-    <form method="POST"  class="registro">
-        
-        {% csrf_token %}
-        
-        <div class="selectOption">
-            
-            <label class="textLabels">Cadastro Empresarial?</label>
-            <select id="tipoDeCadastro" class="tipoDeCadastro" onchange="exibirOcultar(this)">
-                <option selected value="oculte">Selecione aqui:</option>
-                <option value="TRUE">Sim</option>
-                <option value="FALSE">Não</option>
-            </select>  
-
-        </div>
-
-        <div class="name" id="name">
-            
-            <label class="textLabeln">Nome:</label>
-            <input class="nomeDeUsuario" type="text" id="inputnome" name="inputnome">
-
-        </div>
-        
-        <div class="empresa" id="empresa">
-           
-            <label class="textLabel">Razão Social:</label>
-            <input class="registroEmpresa" type="text" id="inputNomeFantasia" name="inputNomeFantasia"
-             onchange="escreveInputEmpresa(this)">
-
-        </div>
-
-        <div class="user" id="user">
-
-            <label class="textLabelu">Usuario:</label>
-            <input class="registroUser" type="text" id="inputUser" name="inputUser" 
-            onchange="escreveInputUsuario(this)">
-
-        </div>
-
-
-        <div class="password" id="password">
-
-            <label class="textLabelp">Senha:</label>
-            <input class="registroSenha" type="password" id="inputPassword" name="inputPassword">
-
-        </div>
-
-        <div class="email" id="email">
-
-            <label class="textLabele">Email:</label>
-            <input class="registroEmail" type="email" id="inputEmail" name="inputEmail"
-            onchange="escreveInputEmail(this)">
-
-        </div>
-        
-        <div>
-            <input type="hidden" value="Sim" id="empresa1" name="empresa1">
-        </div>
-
-        <div class="insubmit">
-            
-            <input class="inbuton" id="salvar" type="submit" value="Registrar" >
-        
-        </div>
     
-    </form>
+    <div class="coluna15">
+        <img src="{% static 'imagens/bfp.png' %}">
+    </div>
     
+    <div class="coluna70">
+        <form method="POST"  class="registro">
+            
+            {% csrf_token %}
+            
+            <div class="selectOption">
+                
+                <label class="textLabels">Cadastro Empresarial?</label><br>
+                <select id="tipoDeCadastro" class="tipoDeCadastro" onchange="exibirOcultar(this)">
+                    <option selected value="oculte">Selecione aqui:</option>
+                    <option value="TRUE">Sim</option>
+                    <option value="FALSE">Não</option>
+                </select>  
+
+            </div>
+
+            <div class="name" id="name">
+                
+                <label class="textLabeln">Nome:</label><br>
+                <input class="nomeDeUsuario" type="text" id="inputnome" name="inputnome">
+
+            </div>
+            
+            <div class="empresa" id="empresa">
+            
+                <label class="textLabel">Razão Social:</label><br>
+                <input class="registroEmpresa" type="text" id="inputNomeFantasia" name="inputNomeFantasia"
+                onchange="escreveInputEmpresa(this)">
+
+            </div>
+
+            <div class="user" id="user">
+
+                <label class="textLabelu">Usuario:</label><br>
+                <input class="registroUser" type="text" id="inputUser" name="inputUser" 
+                onchange="escreveInputUsuario(this)">
+
+            </div>
+            
+            
+
+            <div class="password" id="password">
+
+                <label class="textLabelp">Senha:</label><br>
+                <input class="registroSenha" type="password" id="inputPassword" name="inputPassword">
+
+            </div>
+
+            <div class="email" id="email">
+
+                <label class="textLabele">Email:</label><br>
+                <input class="registroEmail" type="email" id="inputEmail" name="inputEmail"
+                onchange="escreveInputEmail(this)">
+
+            </div>
+            
+            <div>
+                <input type="hidden" value="Sim" id="empresa1" name="empresa1">
+            </div>
+
+            <div class="insubmit">
+                <br>
+                <input class="inbuton" id="salvar" type="submit" value="Registrar" >
+            
+            </div>
+        
+        </form>
+    
+    </div>
+    
+    <div class="coluna15">
+        <img src="{% static 'imagens/gudfnt.jpg' %}">
+    </div>
+
     <script>
         
         function exibirOcultar(val){
@@ -135,7 +148,7 @@
         function escreveInputUsuario(val){
             var usuario = document.getElementById('inputUser');
 
-            $.get('/testeEmpresaExiste/' + usuario.value, function (resposta){
+            $.get('/testeUsuarioExiste/' + usuario.value, function (resposta){
                 alert(resposta)
             })
         }
@@ -145,11 +158,12 @@
         function escreveInputEmail(val){
             var email = document.getElementById('inputEmail');
 
-            $.get('/testeEmpresaExiste/' + email.value, function (resposta){
+            $.get('/testeEmailExiste/' + email.value, function (resposta){
                 alert(resposta)
             })
         }
     </script>
 
 </div>
+
 {% endblock %}

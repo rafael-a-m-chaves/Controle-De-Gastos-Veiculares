@@ -1,27 +1,16 @@
   .container2{
-    display: block;
-    align-items: center;
-    margin-left: 35%;
+    display: flex;
+    flex-flow: row wrap;
+    margin-top: 5%;
   }
-  .name{
-    margin-left: 21.8%;
-  }
-
-  .empresa{
-    margin-left: 12.7%;
+  
+  .coluna15{
+    width: 15%;
   }
 
-  .user{
-    margin-left: 18.4%;
-  }
-
-  .password{
-    margin-left: 21%;
-  }
-
-  .email{
-    margin-left: 21.4%;
-    margin-bottom: 2%;
+  .coluna70{
+    width: 70%;
+    text-align: -webkit-center;
   }
 
   .empresa{
