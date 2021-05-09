@@ -1,14 +1,17 @@
 {% extends 'base/base.html' %}
 {% block content %}
 {% load static %}
-
+<link rel="stylesheet" href="{% static 'css/form/registro.css' %}">
 <div class="container2">
     
     <div class="coluna15">
-        <img src="{% static 'imagens/bfp.png' %}">
+        
+        <img src="{% static 'imagens/bfp.png' %}"> 
+
     </div>
     
     <div class="coluna70">
+        
         <form method="POST"  class="registro">
             
             {% csrf_token %}
@@ -36,6 +39,16 @@
                 <label class="textLabel">Razão Social:</label><br>
                 <input class="registroEmpresa" type="text" id="inputNomeFantasia" name="inputNomeFantasia"
                 onchange="escreveInputEmpresa(this)">
+                
+                <div id="empresaJaExiste" class="empresaJaExiste">
+
+                    <br>
+                    <label class="redLabel">Esta Razão social já esta cadastrada</label>
+                    <br>
+                    <label class="linkLabel"><a href="#" class="linkLabel"><u>Recuperar Senha</u></a></label>
+                    <br>
+
+                </div>
 
             </div>
 
@@ -45,10 +58,16 @@
                 <input class="registroUser" type="text" id="inputUser" name="inputUser" 
                 onchange="escreveInputUsuario(this)">
 
+                <div id="userJaExiste" class="userJaExiste">
+
+                    <br>
+                    <label class="redLabel">Este Usuario já esta existe</label>
+                    <br>
+
+                </div>
+
             </div>
             
-            
-
             <div class="password" id="password">
 
                 <label class="textLabelp">Senha:</label><br>
@@ -62,14 +81,20 @@
                 <input class="registroEmail" type="email" id="inputEmail" name="inputEmail"
                 onchange="escreveInputEmail(this)">
 
-            </div>
-            
-            <div>
-                <input type="hidden" value="Sim" id="empresa1" name="empresa1">
+                <div id="emailJaExiste" class="emailJaExiste">
+
+                    <br>
+                    <label class="redLabel">Este email já está cadastrado</label>
+                    <br>
+                    <label class="linkLabel"><a href="#" class="linkLabel"><u>Recuperar Senha</u></a></label>
+                    <br>
+
+                </div>
+
             </div>
 
-            <div class="insubmit">
-                <br>
+            <div class="insubmit" id="insubmit">
+        
                 <input class="inbuton" id="salvar" type="submit" value="Registrar" >
             
             </div>
@@ -79,7 +104,9 @@
     </div>
     
     <div class="coluna15">
+        
         <img src="{% static 'imagens/gudfnt.jpg' %}">
+    
     </div>
 
     <script>
@@ -137,9 +164,14 @@
     <script>
         function escreveInputEmpresa(val){
             var empresa = document.getElementById('inputNomeFantasia');
+            var empresaJaExiste = document.getElementById('empresaJaExiste');
 
             $.get('/testeEmpresaExiste/' + empresa.value, function (resposta){
-                alert(resposta)
+                if (resposta === 'True'){
+                    $(empresaJaExiste).show();
+                }else{
+                    $(empresaJaExiste).hide();    
+                }
             })
         }
     </script>
@@ -147,9 +179,14 @@
     <script>
         function escreveInputUsuario(val){
             var usuario = document.getElementById('inputUser');
+            var userJaExiste = document.getElementById('userJaExiste');
 
             $.get('/testeUsuarioExiste/' + usuario.value, function (resposta){
-                alert(resposta)
+                if (resposta ==='True'){
+                    $(userJaExiste).show();
+                }else{
+                    $(userJaExiste).hide();
+                }
             })
         }
     </script>
@@ -157,9 +194,14 @@
     <script>
         function escreveInputEmail(val){
             var email = document.getElementById('inputEmail');
+            var emailJaExiste = document.getElementById('emailJaExiste');
 
             $.get('/testeEmailExiste/' + email.value, function (resposta){
-                alert(resposta)
+                if (resposta==='True'){
+                    $(emailJaExiste).show();
+                }else{
+                    $(emailJaExiste).hide();
+                }
             })
         }
     </script>

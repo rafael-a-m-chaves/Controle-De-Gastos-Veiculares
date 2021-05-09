@@ -18,7 +18,7 @@
     <!-- Arquivos staticos css e link com jquary -->
     
     <link rel="stylesheet" href="{% static 'css/base/base.css' %}">
-    <link rel="stylesheet" href="{% static 'css/form/registro.css' %}">
+    
     <link rel="javascript" href="code.jquery.com/jquery-3.6.0.min.js">
     <script type="text/javascript" src="{% static 'javascript/jquaryCompress/jquary.js' %}"></script>
 
@@ -71,19 +71,19 @@
                     
                 {% else %}
                 <li class="nav-icon">
-                    <a href="/veiculos"><span class="material-icons-outlined">toys</span><br>Veículos</a>
+                    <a href="{% url 'login' %}"><span class="material-icons-outlined">toys</span><br>Veículos</a>
                 </li>
                 <li class="nav-icon">
-                    <a href="#"><span class="material-icons-outlined">local_gas_station</span><br>Abastecimentos</a>
+                    <a href="{% url 'login' %}"><span class="material-icons-outlined">local_gas_station</span><br>Abastecimentos</a>
                 </li>
                 <li class="nav-icon">
-                    <a href="#"><span class="material-icons-outlined">construction</span><br>Manutenções</a>
+                    <a href="{% url 'login' %}"><span class="material-icons-outlined">construction</span><br>Manutenções</a>
                 </li>
                 <li class="nav-icon">
-                    <a href="#"><span class="material-icons-outlined">add_road</span><br>Media de Consumo</a>
+                    <a href="{% url 'login' %}"><span class="material-icons-outlined">add_road</span><br>Media de Consumo</a>
                 </li>
                 <li class="nav-icon">
-                    <a href="#"><span class="material-icons-outlined">sticky_note_2</span><br>Gastos Por Km </a>
+                    <a href="{% url 'login' %}"><span class="material-icons-outlined">sticky_note_2</span><br>Gastos Por Km </a>
                 </li>
                 <li class="nav-icon">
                     <a class="nav-link" href="{% url 'login' %}"><span class="material-icons-outlined">login</span><br>Login</a>
