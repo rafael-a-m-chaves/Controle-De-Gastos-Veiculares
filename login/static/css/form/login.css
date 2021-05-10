@@ -12,6 +12,11 @@
     width: 10%;
   }
   
+  .linkLabel{
+    color: black;
+    font-family: 'New Tegomin', serif;
+  }
+
   .labeltext{
     font-family: 'New Tegomin', serif;
     color:#00b4db;

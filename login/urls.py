@@ -1,4 +1,4 @@
-from django.urls import path
+from django.urls import path, include
 from login import views
 from login.views import PublisherListView
 
@@ -12,4 +12,5 @@ urlpatterns = [
     path('testeEmpresaExiste/<str:ab>', views.testeEmpresaExiste),
     path('testeUsuarioExiste/<str:us>', views.testeUsuarioExiste),
     path('testeEmailExiste/<str:em>', views.testeEmailExiste),
+    path('account/', include('django.contrib.auth.urls')),
 ]
