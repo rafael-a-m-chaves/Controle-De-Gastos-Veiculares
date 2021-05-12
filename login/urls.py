@@ -12,5 +12,5 @@ urlpatterns = [
     path('testeEmpresaExiste/<str:ab>', views.testeEmpresaExiste),
     path('testeUsuarioExiste/<str:us>', views.testeUsuarioExiste),
     path('testeEmailExiste/<str:em>', views.testeEmailExiste),
-    path('account/', include('django.contrib.auth.urls')),
+
 ]
