@@ -23,11 +23,17 @@ class MyUser(AbstractUser):
 
 class Veiculos(models.Model):
     id = models.AutoField(primary_key=True)
-    propietario = models.ForeignKey(MyUser, on_delete=models.CASCADE, db_column='propietario')
+    empresa = models.ForeignKey(Empresa, on_delete=models.CASCADE, db_column='empresa')
+    propietario = models.CharField(max_length=150)
+    motorista = models.CharField(max_length=150)
+    tipoVeiculo = models.CharField(max_length=30)
+    marcaVeiculo= models.CharField(max_length=30)
     placa = models.CharField(max_length=7)
-    veiculo = models.CharField(max_length=15)
+    veiculo = models.CharField(max_length=15) #modelo do veiculo
+    inicialKm= models.DecimalField(max_digits=8,decimal_places=2)
     Atualkm = models.DecimalField(max_digits=8, decimal_places=2)
     datain = models.DateField(auto_created=True)
+    cavaloMecanico=models.BooleanField(default=False)
 
     class Meta:
         ordering = ["-placa"]

@@ -1,8 +1,8 @@
 {% extends 'base/base.html' %}
 
-{% block content %}
-    {% if user.is_authenticated %}    
-        
+{% block content %}   
+{% load static %}
+
         <form method="POST" >
             {% csrf_token %}
             {{ form.non_field_erros }}
@@ -27,12 +27,46 @@
             <div class="fieldWrapper">
                 <input class="inbuton" type="submit" value="Salvar" style="font-family: 'New Tegomin', serif;">
             </div>
+            <input type="button" onclick="carrega()" value="carrega" style="color: blue;">
+            <br>
+            
         </form>
     
-    {% else %}
-    
-        ainda estamos em desenvolvimento 
-    
-    {% endif %}
+<script>
+    function carrega(){
+        $.ajax({
+            url: "{% static 'csv/veiculos/baseDeDados/marcas-carros.csv' %}",
+            dataType: 'text',
+        }).done(successFunction);
+
+        function successFunction(data) {
+            var allRows = data.split(/\r?\n|\r/);
+            var select = '<select>'
+
+            for (var singleRow = 0; singleRow < allRows.length; singleRow++) {
+            var rowCells = allRows[singleRow].split(';');
+            var cont = 0;
+
+            for (var rowCell = 0; rowCell < rowCells.length; rowCell++) {
+                if (singleRow ===0){
+                    if(cont===0){
+                        select += ('<option value=selecione>Selecione um Veiculo</option>');
+                        cont += 1;
+                    }
+                }
+                else if (rowCell === 0){
+                    select += ('<option value='+rowCells[rowCell]+'>');
+                }else{
+                    select += (rowCells[rowCell]+'</option>');
+                }
+
+            }
+            
+            } 
+            select += '</select>';
+            $('body').append(select);
+        }
+    }
+</script>
     
 {% endblock %}

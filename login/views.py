@@ -52,6 +52,7 @@ def veiculos(request, user):
 
 
 def register(request):
+
     empresaid = None
     if request.method == 'POST':
 
