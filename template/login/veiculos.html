@@ -2,38 +2,58 @@
 
 {% block content %}   
 {% load static %}
-
-        <form method="POST" >
-            {% csrf_token %}
-            {{ form.non_field_erros }}
-            <div class="fieldWrapper">
-                <input type="hidden" value="{{ user.get_username }}" name="user" >
-            </div>
-            <div class="fieldWrapper">
-                {{ form.placa.erros }}
-                <label class="forme" for="{{ form.placa.id_for_label }}">Placa:</label>
-                {{ form.placa }}
-            </div>
-            <div class="fieldWrapper">
-                {{ form.veiculo.erros }}
-                <label class="forme1" for="{{ form.veiculo.id_for_label }}">Veiculo:</label>
-                {{ form.veiculo }}
-            </div>
-            <div class="fieldWrapper">
-                {{ form.Atualkm.erros }}
-                <label class="forme2" for="{{ form.Atualkm.id_for_label }}">Km Atual:</label>
-                {{ form.Atualkm }}
-            </div>
-            <div class="fieldWrapper">
-                <input class="inbuton" type="submit" value="Salvar" style="font-family: 'New Tegomin', serif;">
-            </div>
-            <input type="button" onclick="carrega()" value="carrega" style="color: blue;">
-            <br>
-            
-        </form>
+    <div class="base">
     
+        <div id="coluna15e" class="coluna15">
+        
+        </div>
+       
+        <div id="coluna70" class="coluna70">
+
+            <div id="adicionarVeiculo">
+    
+                <form action="" id="formAddVeiculo" method="POST">
+                    
+                    <div id="divTipoDeVeiculo">
+
+                        <select name="tipoDeVeiculo" id="tipoDeVeiculo" class="selectbox" 
+                        onchange="tipodeVeiculo(this)">
+                        
+                            <option selected value="0">Selecione o Tipo de veiculo</option>
+                            <option value="1">Carro</option>
+                            <option value="2">Moto</option>
+                            <option value="3">Caminhão</option>
+                            <option value="4">Conjuto Cavalo + Carreta</option>
+                        
+                        </select>
+                    
+                    </div>
+
+                    <div id="divMarcaVeiculo">
+
+                    </div>
+
+                </form>
+    
+            </div> 
+
+        </div>
+
+        <div id="coluna15d" class="coluna15">
+
+        </div>
+    
+    </div>
+
 <script>
-    function carrega(){
+    function tipodeVeiculo(valor){
+
+        if (valor.value==='1'){
+            selectMontadoraVeiculo()
+        }
+    }
+
+    function selectMontadoraVeiculo(){
         $.ajax({
             url: "{% static 'csv/veiculos/baseDeDados/marcas-carros.csv' %}",
             dataType: 'text',
@@ -41,8 +61,9 @@
 
         function successFunction(data) {
             var allRows = data.split(/\r?\n|\r/);
-            var select = '<select>'
-
+            var select = "<select id='tipoDeVeiculo' class='selectbox' onchange='teste()'>"
+            var divMarcaVeiculo = document.getElementById('divMarcaVeiculo');
+            
             for (var singleRow = 0; singleRow < allRows.length; singleRow++) {
             var rowCells = allRows[singleRow].split(';');
             var cont = 0;
@@ -50,7 +71,7 @@
             for (var rowCell = 0; rowCell < rowCells.length; rowCell++) {
                 if (singleRow ===0){
                     if(cont===0){
-                        select += ('<option value=selecione>Selecione um Veiculo</option>');
+                        select += ('<option value=selecione>Selecione uma Marca</option>');
                         cont += 1;
                     }
                 }
@@ -64,8 +85,12 @@
             
             } 
             select += '</select>';
-            $('body').append(select);
+            $(divMarcaVeiculo).append(select);
         }
+    }
+
+    function teste(){
+        alert('deu certo')
     }
 </script>
     
