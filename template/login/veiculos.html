@@ -30,16 +30,32 @@
                     </div>
 
                     <div id="divMarcaVeiculo"></div>
-                    <div id="divModeloVeiculo"></div>
 
-                    <div id="divMarcaMoto"></div>
-                    <div id="divModeloMoto"></div>
+                    <div id="hodometro">
+                        
+                        <label class="textLabel">Hodômetro Atual</label>
+                        <br>
+                        <input id="hodometroAtual" name="hodometroAtual" type="text">
+                   
+                    </div>
+                    
+                    <div id="ano">
 
-                    <div id="divMarcaCaminhao"></div>
-                    <div id="divModeloCaminhao"></div>
+                        <label class="textLabel">Ano de Fabricação</label>
+                        <br>
+                        <input id="anoFabricacao" name="anoFabricacao" type="text">
 
-                    <div id="divMarcaConjunto"></div>
-                    <div id="divModeloConjunto"></div>
+                    </div>
+
+                    <div id="vinculoMotorista">
+                        
+                        <select id="motoristaFixo" name="motoristaFixo" onchange="motoristafixo(this)">
+                        <option selected value="selecione">Tem Motorista Principal?</option>
+                        <option value="sim">Sim</option>
+                        <option value="nao">Não</option>
+                        </select>  
+                    
+                    </div>
 
                 </form>
     
@@ -56,70 +72,95 @@
 <script>
     function tipodeVeiculo(valor){
         var veiculo = document.getElementById('divMarcaVeiculo');
-        var moto = document.getElementById('divMarcaMoto');
-        var caminhao = document.getElementById('divMarcaCaminhao');
-        var conjunto = document.getElementById('divMarcaConjunto');
+       
 
         if (valor.value==='0'){
             $(veiculo).hide();
-            $(moto).hide();
-            $(caminhao).hide();
-            $(conjunto).hide();
+            
         
         }else if(valor.value==="1"){
+            $(veiculo).empty()
             $(veiculo).show();
-            $(moto).hide();
-            $(caminhao).hide();
-            $(conjunto).hide();
-            if( $(veiculo).is(':empty') ) {
-                urld = "{% static 'csv/veiculos/baseDeDados/marcas-carros.csv' %}";
-                divd = "divMarcaVeiculo";
-                selectMontadoraVeiculo(urld,divd);
-            }
+            urld = "{% static 'csv/veiculos/baseDeDados/marcas-carros.csv' %}";
+            divd = "divMarcaVeiculo";
+            tipo = "divMarcaVeiculo";
+            selectMontadoraVeiculo(urld,divd,tipo);
+            
         
         }else if(valor.value==="2"){
-            $(veiculo).hide();
-            $(moto).show();
-            $(caminhao).hide();
-            $(conjunto).hide();
-            if( $(moto).is(':empty') ) {
-                urld = "{% static 'csv/veiculos/baseDeDados/marcas-motos.csv' %}";
-                divd = "divMarcaMoto";
-                selectMontadoraVeiculo(urld,divd);
-            }
+            $(veiculo).empty()
+            $(veiculo).show();
+            urld = "{% static 'csv/veiculos/baseDeDados/marcas-motos.csv' %}";
+            divd = "divMarcaVeiculo";
+            tipo = "divMarcaMoto";
+            selectMontadoraVeiculo(urld,divd,tipo);
+            
         
         }else if(valor.value==="3"){
-            $(veiculo).hide();
-            $(moto).hide();
-            $(caminhao).show();
-            $(conjunto).hide();
-            if( $(caminhao).is(':empty') ) {
-                urld = "{% static 'csv/veiculos/baseDeDados/marcas-caminhao.csv' %}";
-                divd = "divMarcaCaminhao";
-                selectMontadoraVeiculo(urld,divd);
-            }
+            $(veiculo).empty()
+            $(veiculo).show();
+            urld = "{% static 'csv/veiculos/baseDeDados/marcas-caminhao.csv' %}";
+            divd = "divMarcaVeiculo";
+            tipo = "divMarcaCaminhao";
+            selectMontadoraVeiculo(urld,divd,tipo);
+            
         
         }else if(valor.value==="4"){
-            $(veiculo).hide();
-            $(moto).hide();
-            $(caminhao).hide();
-            $(conjunto).show();
-            if( $(conjunto).is(':empty') ) {
-                urld = "{% static 'csv/veiculos/baseDeDados/marcas-caminhao.csv' %}";
-                divd = "divMarcaConjunto";
-                selectMontadoraVeiculo(urld,divd);
-            }
+            $(veiculo).empty()
+            $(veiculo).show();
+            urld = "{% static 'csv/veiculos/baseDeDados/marcas-caminhao.csv' %}";
+            divd = "divMarcaVeiculo";
+            tipo = "divMarcaConjunto";
+            selectMontadoraVeiculo(urld,divd,tipo);
+            
         }
     }
 
     function divMarcaVeiculo(val){
+        var mostraVei = document.getElementById('mostraVeiculo'); 
+        $(mostraVei).empty();
+        $(mostraVei).remove();
         urld = "{% static 'csv/veiculos/baseDeDados/modelos-carro.csv' %}";
-        divd = "divModeloVeiculo";
+        divd = "divMarcaVeiculo";
         marca = val.value;
-        selecioneModeloVeiculo(urld,divd,marca)
+    
+        selecioneModeloVeiculo(urld,divd,marca);
     }
 
-    function selectMontadoraVeiculo(urld,divd){
+    function divMarcaMoto(val){
+        var mostraVei = document.getElementById('mostraVeiculo'); 
+        $(mostraVei).empty();
+        $(mostraVei).remove();
+        urldm = "{% static 'csv/veiculos/baseDeDados/modelos-moto.csv' %}";
+        divd = "divMarcaVeiculo";
+        marca = val.value;
+        
+        selecioneModeloVeiculo(urldm,divd,marca);
+    }
+
+    function divMarcaCaminhao(val){
+        var mostraVei = document.getElementById('mostraVeiculo'); 
+        $(mostraVei).empty();
+        $(mostraVei).remove();
+        urldc = "{% static 'csv/veiculos/baseDeDados/modelos-caminhao.csv' %}";
+        divd = "divMarcaVeiculo";
+        marca = val.value;
+        
+        selecioneModeloVeiculo(urldc,divd,marca);
+    }
+
+    function divMarcaConjunto(val){
+        var mostraVei = document.getElementById('mostraVeiculo'); 
+        $(mostraVei).empty();
+        $(mostraVei).remove();
+        urldj = "{% static 'csv/veiculos/baseDeDados/modelos-caminhao.csv' %}";
+        divd = "divMarcaVeiculo";
+        marca = val.value;
+        
+        selecioneModeloVeiculo(urldj,divd,marca);
+    }
+
+    function selectMontadoraVeiculo(urld,divd,tipo){
         $.ajax({
             url: urld,
             dataType: 'text',
@@ -127,7 +168,7 @@
 
         function successFunction(data) {
             var allRows = data.split(/\r?\n|\r/);
-            var select = "<select id='selectMarca' name='selectMarca' class='selectbox' onchange='"+divd+"(this)'>"
+            var select = "<select id='selectMarca' name='selectMarca' class='selectbox' onchange='"+tipo+"(this)'>"
             var divMarcaVeiculo = document.getElementById(divd);
             
             for (var singleRow = 0; singleRow < allRows.length; singleRow++) {
@@ -166,38 +207,44 @@
 
         function successFunction(data) {
             var allRows = data.split(/\r?\n|\r/);
-            var select = "<select id='selectModelo' name='selectModelo' class='selectbox'>"
+            var select = "<div id='mostraVeiculo'><select id='mostraVeiculo' name='selectModelo' class='selectbox'>"
             var divMarcaVeiculo = document.getElementById(divd);
             
             for (var singleRow = 0; singleRow < allRows.length; singleRow++) {
             var rowCells = allRows[singleRow].split(';');
             var cont = 0;
-
             
+            for (var rowCell = 0; rowCell < rowCells.length; rowCell++) {
                 if (singleRow ===0){
                     if(cont===0){
                         select += ('<option value=selecione>Selecione um Modelo</option>');
                         cont += 1;
-                        alert(rowCells[1],parseInt(marca));
                     }
-                }else if (rowCells[1] === parseInt(marca)){
-                    alert(rowCells[1],parseInt(marca));
-                    select += ('<option value='+rowCells[0]+'>');
-                    select += (rowCells[2]+'</option>')
-                
                 }
-
+                
+                else if ((rowCell+1) === 1){
+                    if (rowCells[1]===marca){
+                        select += ('<option value='+rowCells[rowCell]+'>');
+                        select += (rowCells[2]+'</option>');
+                        }
+        
+            }
             
-            
-            } 
-            select += '</select>';
+            }
+        } 
+            select += '</select></div>';
             $(divMarcaVeiculo).append(select);
         }
     }
 
-    function teste(){
-        alert('deu certo')
-    }
-</script>
     
+</script>
+
+<script>
+   
+   function motoristafixo(valor){
+    
+   }
+
+</script>
 {% endblock %}

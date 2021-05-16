@@ -32,6 +32,7 @@ class Veiculos(models.Model):
     veiculo = models.CharField(max_length=15) #modelo do veiculo
     inicialKm= models.DecimalField(max_digits=8,decimal_places=2)
     Atualkm = models.DecimalField(max_digits=8, decimal_places=2)
+    fabricado = models.CharField(max_length=4)
     datain = models.DateField(auto_created=True)
     cavaloMecanico=models.BooleanField(default=False)
 
