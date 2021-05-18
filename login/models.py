@@ -14,11 +14,17 @@ class MyUser(AbstractUser):
     empresa = models.ForeignKey(Empresa, on_delete=models.CASCADE, db_column='empresa')
     propietarioAdministrador = models.BooleanField(default=True)
     assinatura = models.BooleanField(default=False)
-
     def __str__(self):
         return self.username
 
     pass
+
+
+class Funcionario(models.Model):
+    nomeCompleto = models.CharField(max_length=150)
+    apelido = models.CharField(max_length=15)
+    numeroTelefone =models.CharField(max_length=11) 
+    user = models.ForeignKey(MyUser, on_delete=models.CASCADE,db_column='user')
 
 
 class Veiculos(models.Model):

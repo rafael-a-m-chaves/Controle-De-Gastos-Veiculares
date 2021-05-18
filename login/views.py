@@ -1,4 +1,7 @@
 from datetime import date
+from typing import Dict
+from django.db.models.query import ValuesListIterable
+from django.http import response
 from django.shortcuts import redirect, render, HttpResponse
 from django.views.generic import ListView
 from login.forms import CadForm
@@ -58,6 +61,7 @@ def register(request):
 
         tipodecadastro = request.POST['empresa1']
         inputnome = request.POST['inputnome']
+        username = request.POST['inputUser']
 
         if tipodecadastro == "TRUE":
             inputnomefantasia = request.POST['inputNomeFantasia']
@@ -65,9 +69,10 @@ def register(request):
             bancoDeDadosEmpresa.save()
             empresaid = Empresa.objects.get(nomeFantasia=inputnomefantasia)
         else:
-            empresaid = Empresa.objects.get(nomeFantasia='usuarioPessoaFisica')
+            bancoDeDadosEmpresa = Empresa(nomeFantasia=username)
+            bancoDeDadosEmpresa.save()
+            empresaid = Empresa.objects.get(nomeFantasia=username)
 
-        username = request.POST['inputUser']
         email = request.POST['inputEmail']
         password = request.POST['inputPassword']
         MyUser.objects.create_user(empresa=empresaid, username=username, email=email, password=password,
@@ -104,3 +109,21 @@ def testeEmailExiste(request, em):
         return HttpResponse(True)
     except:
         return HttpResponse(False)
+
+
+def buscaMotorista(request, usuario):
+    
+    try:
+        bd:int = MyUser.objects.values_list('empresa').get(username=usuario)
+        colaborador = MyUser.objects.values_list('first_name',flat=True).filter(empresa=bd,cargo='Motorista')
+        response = []
+        for e in colaborador:
+            response.append(e)
+            response.append(';')
+        
+        return HttpResponse(response)
+    
+    except:
+        return HttpResponse()
+
+
