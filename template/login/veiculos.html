@@ -265,15 +265,15 @@
             var todosUsuarios = resposta.split(';');
             var select = "<select id='selectMotorista' name='selectMotorista'><option selected value='selecioneMotorista'>Selecione Motorista</option>";
             var label = "<label id='selectMotorista' name='selectMotorista'>Não Existe Motoristas Cadastrados</label>";
-
-            if(todosUsuarios.length>0){
-                for (var cont=0;cont<(todosUsuarios.length-1);cont++){
-                    select +='<option value='+todosUsuarios[0]+'>'+todosUsuarios[0]+'</option>';
+            
+            if(todosUsuarios.length > 1){
+                for (var cont=0;cont<(todosUsuarios.length-1);cont+=2){
+                    select +='<option value='+todosUsuarios[cont]+'>'+todosUsuarios[cont+1]+'</option>';
                 }
                 select +='</select>'
                 $(vinculoMotorista).append(select);
             }else{
-                $(vinculoMotorista).append(select);
+                $(vinculoMotorista).append(label);
             }
         })
 

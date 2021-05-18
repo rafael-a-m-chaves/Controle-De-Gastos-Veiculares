@@ -5,7 +5,7 @@ from django.http import response
 from django.shortcuts import redirect, render, HttpResponse
 from django.views.generic import ListView
 from login.forms import CadForm
-from login.models import MyUser, Veiculos, Empresa
+from login.models import MyUser, Veiculos, Empresa, Funcionario
 
 
 # Create your views here.
@@ -115,15 +115,24 @@ def buscaMotorista(request, usuario):
     
     try:
         bd:int = MyUser.objects.values_list('empresa').get(username=usuario)
-        colaborador = MyUser.objects.values_list('first_name',flat=True).filter(empresa=bd,cargo='Motorista')
+        colaborador = MyUser.objects.values_list('id',flat=True).filter(empresa=bd)
         response = []
-        for e in colaborador:
-            response.append(e)
-            response.append(';')
-        
+        for e in colaborador:    
+            try:
+                cargo = Funcionario.objects.values_list('setor',flat=True).get(user=e)
+                if cargo == 'Motorista':
+                    nomeCompleto = Funcionario.objects.values_list('nomeCompleto',flat=True).get(user=e)
+                    response.append(e)
+                    response.append(';')
+                    response.append(nomeCompleto)
+                    response.append(';')
+            except:
+                pass   
+                
         return HttpResponse(response)
-    
+
     except:
-        return HttpResponse()
+        response = None
+        return HttpResponse(response)
 
 

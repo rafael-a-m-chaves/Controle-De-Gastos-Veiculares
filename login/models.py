@@ -25,6 +25,7 @@ class Funcionario(models.Model):
     apelido = models.CharField(max_length=15)
     numeroTelefone =models.CharField(max_length=11) 
     user = models.ForeignKey(MyUser, on_delete=models.CASCADE,db_column='user')
+    setor = models.CharField(max_length=15)
 
 
 class Veiculos(models.Model):
