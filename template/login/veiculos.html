@@ -30,7 +30,8 @@
                     </div>
 
                     <div id="divMarcaVeiculo"></div>
-
+                    <div id="tipoDeConjunto"></div>
+                    <div id="placa"></div>
                     <div id="hodometro">
                         
                         <label class="textLabel">Hodômetro Atual</label>
@@ -76,15 +77,19 @@
 <script>
     function tipodeVeiculo(valor){
         var veiculo = document.getElementById('divMarcaVeiculo');
-       
+        var divplaca = document.getElementById('divPlaca');
+        var placa = document.getElementById('placa');
 
         if (valor.value==='0'){
+            $(placa).empty();
             $(veiculo).hide();
-            
+            $(divplaca).remove();
         
         }else if(valor.value==="1"){
+            $(placa).empty();
             $(veiculo).empty()
             $(veiculo).show();
+            $(divplaca).remove();
             urld = "{% static 'csv/veiculos/baseDeDados/marcas-carros.csv' %}";
             divd = "divMarcaVeiculo";
             tipo = "divMarcaVeiculo";
@@ -92,6 +97,8 @@
             
         
         }else if(valor.value==="2"){
+            $(placa).empty();
+            $(divplaca).remove();
             $(veiculo).empty()
             $(veiculo).show();
             urld = "{% static 'csv/veiculos/baseDeDados/marcas-motos.csv' %}";
@@ -101,6 +108,8 @@
             
         
         }else if(valor.value==="3"){
+            $(placa).empty();
+            $(divplaca).remove();
             $(veiculo).empty()
             $(veiculo).show();
             urld = "{% static 'csv/veiculos/baseDeDados/marcas-caminhao.csv' %}";
@@ -110,14 +119,30 @@
             
         
         }else if(valor.value==="4"){
+            $(placa).empty();
+            $(divplaca).remove();
             $(veiculo).empty()
             $(veiculo).show();
             urld = "{% static 'csv/veiculos/baseDeDados/marcas-caminhao.csv' %}";
             divd = "divMarcaVeiculo";
             tipo = "divMarcaConjunto";
             selectMontadoraVeiculo(urld,divd,tipo);
-            
+            tipoConjunto();
         }
+    }
+
+    function tipoConjunto(){
+        var div = document.getElementById("tipoDeConjunto");
+        conjunto = '<div id="divPlaca"><select id="carreta" name="carreta" onchange="placaConjunto(this)">';
+        conjunto +='<option selected value="0">Selecione a Carreta</option>';
+        conjunto +='<option value="1">Carreta 2 Eixos PBTC Até 33ton</option>';
+        conjunto +='<option value="2">Carreta 3 Eixos PBTC Até 45ton</option>';
+        conjunto +='<option value="3">Bitrem 7 Eixos PBTC Até 57ton</option>';
+        conjunto +='<option value="4">Bitrem 9 Eixos PBTC Até 74ton</option>';
+        conjunto +='<option value="5">Tritrem 9 Eixos PBTC Até 74ton</option>';
+        conjunto +='<option value="6">Rodo Trem 9 Eixos PBTC Até 74ton</option>';
+        conjunto +='</select></div>'
+        $(div).append(conjunto);
     }
 
     function divMarcaVeiculo(val){
@@ -127,8 +152,8 @@
         urld = "{% static 'csv/veiculos/baseDeDados/modelos-carro.csv' %}";
         divd = "divMarcaVeiculo";
         marca = val.value;
-    
         selecioneModeloVeiculo(urld,divd,marca);
+        placa(0);
     }
 
     function divMarcaMoto(val){
@@ -138,8 +163,8 @@
         urldm = "{% static 'csv/veiculos/baseDeDados/modelos-moto.csv' %}";
         divd = "divMarcaVeiculo";
         marca = val.value;
-        
         selecioneModeloVeiculo(urldm,divd,marca);
+        placa(0);
     }
 
     function divMarcaCaminhao(val){
@@ -149,19 +174,56 @@
         urldc = "{% static 'csv/veiculos/baseDeDados/modelos-caminhao.csv' %}";
         divd = "divMarcaVeiculo";
         marca = val.value;
-        
         selecioneModeloVeiculo(urldc,divd,marca);
+        placa(0);
     }
 
     function divMarcaConjunto(val){
         var mostraVei = document.getElementById('mostraVeiculo'); 
+        var div = document.getElementById("divMarcaVeiculo");
         $(mostraVei).empty();
         $(mostraVei).remove();
         urldj = "{% static 'csv/veiculos/baseDeDados/modelos-caminhao.csv' %}";
         divd = "divMarcaVeiculo";
         marca = val.value;
-        
         selecioneModeloVeiculo(urldj,divd,marca);
+    }
+
+    function placaConjunto(valor){
+        
+        if (valor.value === '0'){
+            var carreta = document.getElementById('placa');
+            $(carreta).empty();
+        }else if (valor.value==='1' || valor.value==='2'){
+            $(carreta).empty();
+            placa(1);  
+        }else if (valor.value==='3' || valor.value==='4'){
+            $(carreta).empty();
+            placa(2);
+        }else if (valor.value==='5' || valor.value==='6'){
+            $(carreta).empty();
+            placa(3);
+        }else{
+            $(carreta).empty();
+            alert('O Valor Informado Não Existe');
+        }
+    }
+
+    function placa(valor){
+        var placa = document.getElementById('placa');
+        informePlaca = '';
+        
+        if($(placa).is(':empty')){
+            for(cont = 0; cont <= valor; cont++){
+                informePlaca += '<input type="text" maxlength="7" id="placa'+cont+'" name="placa'+cont+'" placeholder="'+(cont+1)+'º PLACA">' 
+            }
+        }else{
+            $(placa).empty();
+            for(cont = 0; cont <= valor; cont++){
+                informePlaca += '<input type="text" maxlength="7" id="placa'+cont+'" name="placa'+cont+'" placeholder="'+(cont+1)+'º PLACA">' 
+            }
+        }
+        $(placa).append(informePlaca);
     }
 
     function selectMontadoraVeiculo(urld,divd,tipo){
@@ -211,7 +273,7 @@
 
         function successFunction(data) {
             var allRows = data.split(/\r?\n|\r/);
-            var select = "<div id='mostraVeiculo'><select id='mostraVeiculo' name='selectModelo' class='selectbox'>"
+            var select = "<div id='mostraVeiculo'><select id='mostraModelo' name='selectModelo' class='selectbox'>"
             var divMarcaVeiculo = document.getElementById(divd);
             
             for (var singleRow = 0; singleRow < allRows.length; singleRow++) {

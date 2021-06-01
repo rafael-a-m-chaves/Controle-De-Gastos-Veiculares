@@ -1,5 +1,4 @@
 """cgv URL Configuration
-
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/3.1/topics/http/urls/
 Examples:
@@ -21,5 +20,5 @@ urlpatterns = [
     path('',include('login.urls')),
     path('account/', include('django.contrib.auth.urls')),
     path('/account/', include('django.contrib.auth.urls')),
-    
+
 ]

@@ -55,7 +55,6 @@ def veiculos(request, user):
 
 
 def register(request):
-
     empresaid = None
     if request.method == 'POST':
 
@@ -112,27 +111,24 @@ def testeEmailExiste(request, em):
 
 
 def buscaMotorista(request, usuario):
-    
     try:
-        bd:int = MyUser.objects.values_list('empresa').get(username=usuario)
-        colaborador = MyUser.objects.values_list('id',flat=True).filter(empresa=bd)
+        bd: int = MyUser.objects.values_list('empresa').get(username=usuario)
+        colaborador = MyUser.objects.values_list('id', flat=True).filter(empresa=bd)
         response = []
-        for e in colaborador:    
+        for e in colaborador:
             try:
-                cargo = Funcionario.objects.values_list('setor',flat=True).get(user=e)
+                cargo = Funcionario.objects.values_list('setor', flat=True).get(user=e)
                 if cargo == 'Motorista':
-                    nomeCompleto = Funcionario.objects.values_list('nomeCompleto',flat=True).get(user=e)
+                    nomeCompleto = Funcionario.objects.values_list('nomeCompleto', flat=True).get(user=e)
                     response.append(e)
                     response.append(';')
                     response.append(nomeCompleto)
                     response.append(';')
             except:
-                pass   
-                
+                pass
+
         return HttpResponse(response)
 
     except:
         response = None
         return HttpResponse(response)
-
-
